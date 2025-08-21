@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard LMS Moodle — Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config (optional custom colors)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f2f8ff', 100: '#e6f1ff', 200: '#bfdbfe', 300: '#93c5fd',
+              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+              800: '#1e40af', 900: '#1e3a8a'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 25px -10px rgba(0,0,0,0.1)'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
+  <style>
+    :root { --sidebar-width: 270px; }
+    html { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .sidebar-enter { transform: translateX(-100%); opacity: 0; }
+    .sidebar-enter-active { transform: translateX(0); opacity: 1; transition: all .25s ease; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <!-- App Wrapper -->
+  <div class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-[var(--sidebar-width)] -translate-x-full lg:translate-x-0 bg-white/95 backdrop-blur border-r border-slate-200 shadow-soft">
+      <div class="h-full flex flex-col">
+        <!-- Brand -->
+        <div class="flex items-center gap-3 px-5 h-16 border-b border-slate-200">
+          <span class="grid place-items-center w-10 h-10 rounded-xl bg-brand-100 text-brand-700"> 
+            <!-- Book Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m7-9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3m14 0H5m14 0v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9"/>
+            </svg>
+          </span>
+          <div>
+            <p class="font-semibold leading-tight">Moodle Campus</p>
+            <p class="text-xs text-slate-500">Learning Management System</p>
+          </div>
+        </div>
+        <!-- Nav -->
+        <nav class="p-3 overflow-y-auto">
+          <p class="px-3 pt-2 pb-1 text-xs font-semibold tracking-wide text-slate-500">Menu</p>
+          <ul class="space-y-1">
+            <!-- Active -->
+            <li>
+              <a href="#" class="group flex items-center gap-3 px-3 py-2 rounded-xl bg-brand-50 text-brand-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/></svg>
+                <span class="font-medium">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#courses" class="group flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4"/></svg>
+                <span class="font-medium">Kursus</span>
+              </a>
+            </li>
+            <li>
+              <a href="#grades" class="group flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6a2 2 0 012-2h6"/><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h6v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7h6"/></svg>
+                <span class="font-medium">Nilai</span>
+              </a>
+            </li>
+            <li>
+              <a href="#calendar" class="group flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="font-medium">Kalender</span>
+              </a>
+            </li>
+            <li>
+              <a href="#messages" class="group flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M21 8v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8"/></svg>
+                <span class="font-medium">Pesan</span>
+              </a>
+            </li>
+            <li>
+              <a href="#settings" class="group flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a1 1 0 012 0v1.06a8.003 8.003 0 013.446 1.428l.75-.75a1 1 0 111.414 1.415l-.75.75A8.003 8.003 0 0119.94 11H21a1 1 0 110 2h-1.06a8.003 8.003 0 01-1.428 3.446l.75.75a1 1 0 01-1.415 1.414l-.75-.75A8.003 8.003 0 0113 18.94V20a1 1 0 11-2 0v-1.06a8.003 8.003 0 01-3.446-1.428l-.75.75a1 1 0 01-1.414-1.415l.75-.75A8.003 8.003 0 014.06 13H3a1 1 0 110-2h1.06a8.003 8.003 0 011.428-3.446l-.75-.75a1 1 0 111.415-1.414l.75.75A8.003 8.003 0 0111 5.06V4z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span class="font-medium">Pengaturan</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="mt-6 border-t border-slate-200 pt-4">
+            <p class="px-3 pb-1 text-xs font-semibold tracking-wide text-slate-500">Ruang Kelas</p>
+            <ul class="space-y-1">
+              <li><a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Informatika 101</a></li>
+              <li><a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100"><span class="w-2 h-2 rounded-full bg-fuchsia-500"></span> Jaringan Komputer</a></li>
+              <li><a href="#" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Statistika</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="mt-auto p-4">
+          <a href="#" class="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 8v8a2 2 0 002 2h4"/></svg>
+            Keluar
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 w-full lg:pl-[var(--sidebar-width)]">
+      <!-- Topbar -->
+      <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
+        <div class="h-16 flex items-center justify-between gap-3 px-4 sm:px-6">
+          <div class="flex items-center gap-3">
+            <button id="btnSidebar" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-slate-200 hover:bg-slate-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/></svg>
+            </button>
+            <div class="hidden md:flex items-center gap-2">
+              <span class="text-slate-500">Dashboard</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              <span class="font-medium">Beranda</span>
+            </div>
+          </div>
+
+          <div class="flex-1 max-w-xl w-full">
+            <label class="relative block">
+              <span class="sr-only">Cari kursus, tugas, atau pengajar</span>
+              <input type="text" placeholder="Cari kursus, tugas, atau pengajar…" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 pl-10 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500" />
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19a8 8 0 100-16 8 8 0 000 16z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+              </span>
+            </label>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button class="relative w-10 h-10 grid place-items-center rounded-xl border border-slate-200 hover:bg-slate-100" aria-label="Notifikasi">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"/><path stroke-linecap="round" stroke-linejoin="round" d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              <span class="absolute -top-1 -right-1 w-4 h-4 text-xs grid place-items-center rounded-full bg-rose-500 text-white">3</span>
+            </button>
+
+            <div class="relative">
+              <button id="btnUser" class="flex items-center gap-3 pl-2 pr-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100">
+                <img src="https://i.pravatar.cc/64?img=12" alt="Avatar" class="w-8 h-8 rounded-lg object-cover"/>
+                <div class="hidden sm:block text-left">
+                  <p class="text-sm font-semibold leading-tight">Ari L.</p>
+                  <p class="text-[11px] text-slate-500 -mt-0.5">Mahasiswa</p>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div id="menuUser" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl border border-slate-200 shadow-soft overflow-hidden">
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50">
+                  <span class="w-8 h-8 grid place-items-center rounded-lg bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  </span>
+                  Profil Saya
+                </a>
+                <a href="#settings" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50">
+                  <span class="w-8 h-8 grid place-items-center rounded-lg bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a1 1 0 012 0v1.06a8.003 8.003 0 013.446 1.428l.75-.75a1 1 0 111.414 1.415l-.75.75A8.003 8.003 0 0119.94 11H21a1 1 0 110 2h-1.06a8.003 8.003 0 01-1.428 3.446l.75.75a1 1 0 01-1.415 1.414l-.75-.75A8.003 8.003 0 0113 18.94V20a1 1 0 11-2 0v-1.06a8.003 8.003 0 01-3.446-1.428l-.75.75a1 1 0 01-1.414-1.415l.75-.75A8.003 8.003 0 014.06 13H3a1 1 0 110-2h1.06a8.003 8.003 0 011.428-3.446l-.75-.75a1 1 0 111.415-1.414l.75.75A8.003 8.003 0 0111 5.06V4z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </span>
+                  Pengaturan Akun
+                </a>
+                <hr>
+                <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-rose-600 hover:bg-rose-50">
+                  <span class="w-8 h-8 grid place-items-center rounded-lg bg-rose-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 8v8a2 2 0 002 2h4"/></svg>
+                  </span>
+                  Keluar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="px-4 sm:px-6 py-6">
+        <!-- Greeting & Quick Actions -->
+        <section class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 class="text-2xl sm:text-3xl font-semibold">Halo, Ari 👋</h1>
+            <p class="text-slate-500 mt-1">Selamat datang kembali! Lanjutkan progres belajarmu hari ini.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              Tambah Kursus
+            </button>
+            <button class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-100 font-medium">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7v10l9-5-9-5z"/></svg>
+              Lanjutkan Belajar
+            </button>
+          </div>
+        </section>
+
+        <!-- KPI Cards -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+          <!-- Card -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-soft">
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-slate-500">Kursus Diikuti</p>
+              <span class="w-8 h-8 grid place-items-center rounded-lg bg-brand-50 text-brand-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4"/></svg>
+              </span>
+            </div>
+            <p class="mt-3 text-2xl font-semibold">8</p>
+            <p class="text-xs text-slate-500 mt-1">+2 minggu ini</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-soft">
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-slate-500">Kursus Selesai</p>
+              <span class="w-8 h-8 grid place-items-center rounded-lg bg-emerald-50 text-emerald-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </span>
+            </div>
+            <p class="mt-3 text-2xl font-semibold">3</p>
+            <p class="text-xs text-slate-500 mt-1">+1 bulan ini</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-soft">
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-slate-500">Sedang Berjalan</p>
+              <span class="w-8 h-8 grid place-items-center rounded-lg bg-amber-50 text-amber-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>
+              </span>
+            </div>
+            <p class="mt-3 text-2xl font-semibold">5</p>
+            <p class="text-xs text-slate-500 mt-1">2 butuh perhatian</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-soft">
+            <div class="flex items-center justify-between">
+              <p class="text-sm text-slate-500">Rata-rata Nilai</p>
+              <span class="w-8 h-8 grid place-items-center rounded-lg bg-fuchsia-50 text-fuchsia-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 11V7a4 4 0 118 0v4"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5a2 2 0 002 2z"/></svg>
+              </span>
+            </div>
+            <p class="mt-3 text-2xl font-semibold">86</p>
+            <p class="text-xs text-slate-500 mt-1">Stabil</p>
+          </div>
+        </section>
+
+        <!-- Main Grid -->
+        <section class="grid grid-cols-1 xl:grid-cols-3 gap-4 mt-6">
+          <!-- Left: Courses & Activity -->
+          <div class="xl:col-span-2 space-y-4">
+            <!-- My Courses -->
+            <div id="courses" class="rounded-2xl bg-white border border-slate-200 shadow-soft">
+              <div class="flex items-center justify-between p-4 border-b border-slate-200">
+                <div>
+                  <h2 class="text-lg font-semibold">Kursus Saya</h2>
+                  <p class="text-sm text-slate-500">Lanjutkan pembelajaran dari kursus yang kamu ikuti.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <select class="px-3 py-2 rounded-xl border border-slate-200 text-sm">
+                    <option>Semua</option>
+                    <option>Berjalan</option>
+                    <option>Selesai</option>
+                  </select>
+                  <button class="px-3 py-2 rounded-xl border border-slate-200 text-sm hover:bg-slate-50">Lihat Semua</button>
+                </div>
+              </div>
+
+              <div class="p-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Course Card -->
+                <article class="group rounded-xl border border-slate-200 overflow-hidden hover:shadow-soft">
+                  <div class="h-28 bg-gradient-to-tr from-brand-200 to-brand-400"></div>
+                  <div class="p-4 space-y-3">
+                    <h3 class="font-semibold group-hover:text-brand-700">Pemrograman Web Dasar</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">HTML, CSS, JS, dan konsep dasar untuk membangun website modern.</p>
+                    <div class="space-y-2">
+                      <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full w-[62%] bg-brand-500"></div>
+                      </div>
+                      <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>Progres</span>
+                        <span>62%</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-lg bg-slate-100">
+                        12 modul
+                      </span>
+                      <button class="text-sm font-medium text-brand-700 hover:underline">Lanjutkan</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="group rounded-xl border border-slate-200 overflow-hidden hover:shadow-soft">
+                  <div class="h-28 bg-gradient-to-tr from-emerald-200 to-emerald-400"></div>
+                  <div class="p-4 space-y-3">
+                    <h3 class="font-semibold group-hover:text-emerald-700">Basis Data</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Relasional, SQL, normalisasi, dan praktik terbaik desain skema.</p>
+                    <div class="space-y-2">
+                      <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full w-[35%] bg-emerald-500"></div>
+                      </div>
+                      <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>Progres</span>
+                        <span>35%</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-lg bg-slate-100">
+                        9 modul
+                      </span>
+                      <button class="text-sm font-medium text-emerald-700 hover:underline">Lanjutkan</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="group rounded-xl border border-slate-200 overflow-hidden hover:shadow-soft">
+                  <div class="h-28 bg-gradient-to-tr from-fuchsia-200 to-fuchsia-400"></div>
+                  <div class="p-4 space-y-3">
+                    <h3 class="font-semibold group-hover:text-fuchsia-700">Jaringan Komputer</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2">Model OSI, TCP/IP, subnetting, dan praktik konfigurasi jaringan.</p>
+                    <div class="space-y-2">
+                      <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div class="h-full w-[80%] bg-fuchsia-500"></div>
+                      </div>
+                      <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>Progres</span>
+                        <span>80%</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-lg bg-slate-100">
+                        10 modul
+                      </span>
+                      <button class="text-sm font-medium text-fuchsia-700 hover:underline">Lanjutkan</button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="rounded-2xl bg-white border border-slate-200 shadow-soft">
+              <div class="flex items-center justify-between p-4 border-b border-slate-200">
+                <h2 class="text-lg font-semibold">Aktivitas Terbaru</h2>
+                <button class="px-3 py-2 rounded-xl border border-slate-200 text-sm hover:bg-slate-50">Lihat Semua</button>
+              </div>
+              <ul class="divide-y divide-slate-200">
+                <li class="p-4 flex items-start gap-3">
+                  <span class="w-9 h-9 grid place-items-center rounded-lg bg-brand-50 text-brand-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v8m-4-4h8"/></svg>
+                  </span>
+                  <div class="flex-1">
+                    <p class="text-sm">Kuis 2 ditambahkan pada <span class="font-medium">Pemrograman Web Dasar</span></p>
+                    <p class="text-xs text-slate-500">Baru saja</p>
+                  </div>
+                </li>
+                <li class="p-4 flex items-start gap-3">
+                  <span class="w-9 h-9 grid place-items-center rounded-lg bg-amber-50 text-amber-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>
+                  </span>
+                  <div class="flex-1">
+                    <p class="text-sm">Deadline tugas <span class="font-medium">Normalisasi Basis Data</span> 2 hari lagi</p>
+                    <p class="text-xs text-slate-500">20 Agustus 2025 • 23:59</p>
+                  </div>
+                </li>
+                <li class="p-4 flex items-start gap-3">
+                  <span class="w-9 h-9 grid place-items-center rounded-lg bg-emerald-50 text-emerald-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <div class="flex-1">
+                    <p class="text-sm">Diskusi forum <span class="font-medium">Subnetting</span> ditandai selesai</p>
+                    <p class="text-xs text-slate-500">Kemarin • 19 Agustus 2025</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right: Widgets -->
+          <div class="space-y-4">
+            <!-- Deadlines -->
+            <div id="calendar" class="rounded-2xl bg-white border border-slate-200 shadow-soft">
+              <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Jadwal & Deadline</h2>
+                <div class="flex items-center gap-2">
+                  <button class="px-3 py-2 rounded-xl border border-slate-200 text-sm hover:bg-slate-50">Hari Ini</button>
+                </div>
+              </div>
+              <ul class="p-4 space-y-3">
+                <li class="flex items-center gap-3">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                  <div class="flex-1">
+                    <p class="text-sm">Kuis: HTML Semantic</p>
+                    <p class="text-xs text-slate-500">20 Agustus 2025 • 20:00</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <div class="flex-1">
+                    <p class="text-sm">Deadline: ERD Project</p>
+                    <p class="text-xs text-slate-500">22 Agustus 2025 • 23:59</p>
+                  </div>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <div class="flex-1">
+                    <p class="text-sm">Live Class: Subnetting</p>
+                    <p class="text-xs text-slate-500">23 Agustus 2025 • 09:00</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Announcements -->
+            <div class="rounded-2xl bg-white border border-slate-200 shadow-soft">
+              <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Pengumuman</h2>
+                <button class="px-3 py-2 rounded-xl border border-slate-200 text-sm hover:bg-slate-50">Lihat Semua</button>
+              </div>
+              <div class="p-4 space-y-4">
+                <article class="p-3 rounded-xl border border-slate-200">
+                  <p class="text-sm font-medium">Maintenance server Minggu, 24 Agustus 2025</p>
+                  <p class="text-xs text-slate-500 mt-1">LMS tidak dapat diakses pukul 00:00–02:00 WIB.</p>
+                </article>
+                <article class="p-3 rounded-xl border border-slate-200">
+                  <p class="text-sm font-medium">Akses Perpustakaan Digital</p>
+                  <p class="text-xs text-slate-500 mt-1">Perpanjangan lisensi JSTOR sampai Desember 2025.</p>
+                </article>
+              </div>
+            </div>
+
+            <!-- Quick Help -->
+            <div class="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white overflow-hidden">
+              <div class="p-5">
+                <h2 class="text-lg font-semibold">Butuh Bantuan?</h2>
+                <p class="text-sm text-slate-300 mt-1">Lihat panduan Moodle, tanya dosen, atau hubungi helpdesk.</p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <a href="#" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7v10l9-5-9-5z"/></svg>
+                    Video Panduan
+                  </a>
+                  <a href="#" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M21 8v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8"/></svg>
+                    Forum
+                  </a>
+                  <a href="#" class="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m6 4H3m12-2v2m6 4H3m12-2v2m-6 4H3"/></svg>
+                    Dokumentasi
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="px-4 sm:px-6 py-6 text-center text-sm text-slate-500">
+        © 2025 Moodle Campus. Dibangun dengan Tailwind CSS.
+      </footer>
+    </div>
+  </div>
+
+  <!-- Overlay for mobile -->
+  <div id="overlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+  <!-- Scripts -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const btnSidebar = document.getElementById('btnSidebar');
+    const btnUser = document.getElementById('btnUser');
+    const menuUser = document.getElementById('menuUser');
+
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      overlay.classList.remove('hidden');
+    }
+    function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      overlay.classList.add('hidden');
+    }
+
+    btnSidebar?.addEventListener('click', () => {
+      const isHidden = sidebar.classList.contains('-translate-x-full');
+      isHidden ? openSidebar() : closeSidebar();
+    });
+    overlay?.addEventListener('click', closeSidebar);
+
+    // User dropdown
+    btnUser?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuUser.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (e) => {
+      if (!menuUser.contains(e.target) && !btnUser.contains(e.target)) {
+        menuUser.classList.add('hidden');
+      }
+    });
+
+    // Improve keyboard nav
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeSidebar(); menuUser.classList.add('hidden'); }
+    });
+  </script>
+</body>
+</html>
