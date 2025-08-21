@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Moodle - Halaman Pengumuman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-600 text-white flex-shrink-0">
+        <div class="p-6 font-bold text-xl">LMS Moodle</div>
+        <nav class="mt-6">
+            <a href="#" class="block px-6 py-3 hover:bg-blue-500">Dashboard</a>
+            <a href="#" class="block px-6 py-3 hover:bg-blue-500">Kursus</a>
+            <a href="#" class="block px-6 py-3 hover:bg-blue-500">Nilai</a>
+            <a href="#" class="block px-6 py-3 bg-blue-500">Pengumuman</a>
+            <a href="#" class="block px-6 py-3 hover:bg-blue-500">Profil</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">Pengumuman Terbaru</h1>
+
+        <!-- Daftar Pengumuman -->
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+                <h2 class="font-bold text-xl mb-2">Maintenance Sistem</h2>
+                <p class="text-gray-600 mb-2">21 Agustus 2025</p>
+                <p class="text-gray-700">Sistem LMS akan melakukan maintenance pada pukul 22:00 sampai 23:00 WIB. Harap menyelesaikan aktivitas sebelum waktu tersebut.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+                <h2 class="font-bold text-xl mb-2">Pengumpulan Tugas</h2>
+                <p class="text-gray-600 mb-2">20 Agustus 2025</p>
+                <p class="text-gray-700">Pengumpulan tugas Matematika Dasar diperpanjang hingga 23 Agustus 2025 pukul 23:59 WIB.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+                <h2 class="font-bold text-xl mb-2">Quiz Baru</h2>
+                <p class="text-gray-600 mb-2">19 Agustus 2025</p>
+                <p class="text-gray-700">Quiz Bahasa Inggris tersedia mulai hari ini. Silakan cek modul kursus untuk mengerjakan.</p>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
